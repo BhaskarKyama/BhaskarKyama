@@ -1,0 +1,125 @@
+#Simple hello world
+pipeline {
+    agent any
+
+    stages {
+        stage('Echo') {
+            steps {
+                echo 'Hello Jenkins Pipeline'
+            }
+        }
+    }
+}
+
+#Multistage pipeleine
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the project'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing the project'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the project'
+            }
+        }
+    }
+}
+
+#file pipeline
+pipeline {
+    agent any
+    stages {
+        stage('Create a File') {
+            steps {
+                writeFile file: 'pipeline.txt', text: 'Created by Jenkins Pipeline'
+            }
+        }
+        stage('Show File') {
+            steps {
+                powershell 'Get-Content pipeline.txt'
+            }
+        }
+    }
+}
+
+
+#parameterized pipeline
+pipeline {
+    agent any
+    parameters {
+        string(name: 'USERNAME', defaultValue: '', description: 'Enter your name')
+    }
+    stages {
+        stage('Display User') {
+            steps {
+                echo "Hello ${params.USERNAME}"
+            }
+        }
+    }
+}
+
+#scheduled pipeline
+H * * * *
+pipeline {
+    agent any
+
+    stages {
+        stage('Scheduled Task') {
+            steps {
+                echo 'Scheduled pipeline executed'
+            }
+        }
+    }
+}
+
+
+#git integrated pipeline
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/BhaskarKyama/BhaskarKyama.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building project'
+            }
+        }
+    }
+}
+
+#hello world job
+echo Hello, Jenkins!
+
+#workspace job-freestyle
+echo Workspace is: %WORKSPACE%
+
+#file creation and copy/file copy job-freestyle
+echo Created by Jenkins > original.txt
+copy original.txt copy.txt
+
+#parameterized freestyle
+USERNAME
+User
+Kyama Bhaskar
+echo Hello %USERNAME%
+
+
+#scheduled job freestyle
+H/2 * * * *
+echo current date and time: %date% %time%
+
+
