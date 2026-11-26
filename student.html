@@ -204,6 +204,143 @@ pipeline {
     }
 }
 
-4)
+4)Practice Source Code Management (SCM) on GitHub using the source code developed in Experiment 1.
+1. Aim
+To practice Source Code Management (SCM) using Git and GitHub by uploading the source code developed in Experiment 1 to a GitHub repository.
+2. Requirements
+- Git installed.
+- GitHub account.
+- Source code developed in Experiment 1.
+- Command Prompt or Git Bash.
+- Internet connection.
+3. Procedure
+Step 1: Create a GitHub Repository
+1. Open https://github.com.
+2. Login to your GitHub account.
+3. Click the + icon in the top-right corner.
+4. Select New repository.
+5. Enter repository name as SCM-Experiment.
+6. Select Public.
+7. Click Create repository.
+Step 2: Create a Project Folder
+1. Create a folder named SCM-Experiment on your Desktop.
+2. Copy the source code developed in Experiment 1 into this folder.
+3. Open the folder in Command Prompt.
+Step 3: Initialize Git
+
+Execute the following command:
+git init
 
 
+This initializes a new Git repository.
+
+Step 4: Add Source Code
+git add .
+
+
+This adds all project files to the staging area.
+
+Step 5: Commit the Changes
+git commit -m "First commit"
+
+
+This saves the changes in the local Git repository.
+
+Step 6: Connect to GitHub Repository
+
+Copy the repository URL from GitHub and execute:
+git remote add origin https://github.com/USERNAME/SCM-Experiment.git
+
+
+Replace USERNAME with your GitHub username.
+
+Step 7: Push Code to GitHub
+git branch -M main
+git push -u origin main
+
+
+This uploads the source code to GitHub.
+
+Step 8: Verify the Repository
+1. Open your GitHub repository.
+2. Refresh the page.
+3. Check whether your source code files are visible.
+
+
+
+Set-3:
+5)Implement a parameterized pipeline using Jenkins.
+1. Aim
+To create and execute a parameterized pipeline in Jenkins by passing user-defined parameters such as name and environment.
+2. Requirements
+- Jenkins installed and running.
+- Web browser.
+- Jenkins Pipeline plugin.
+3. Procedure
+1. Open the browser and enter http://localhost:8080.
+2. Login to the Jenkins dashboard.
+3. Click on New Item.
+4. Enter the project name as Parameterized-Pipeline.
+5. Select Pipeline and click OK.
+6. Scroll down to the This project is parameterized option.
+7. Select the checkbox.
+8. Click Add Parameter.
+9. Select String Parameter.
+10. Enter the following details:
+    - Name: USERNAME
+    - Default Value: Bhaskar
+11. Click Add Parameter again.
+12. Select Choice Parameter.
+13. Enter the following details:
+    - Name: ENVIRONMENT
+    - Choices:
+      Development
+      Testing
+      Production
+14. Scroll down to the Pipeline section.
+15. Select Pipeline Script in Definition.
+16. Enter the following script.
+17. Click Save.
+18. Click Build with Parameters.
+19. Enter the username and select the environment.
+20. Click Build.
+21. Check the result in Console Output.
+4. Program (Pipeline Script)
+
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'USERNAME',
+               defaultValue: 'Bhaskar',
+               description: 'Enter your name')
+
+        choice(name: 'ENVIRONMENT',
+               choices: ['Development', 'Testing', 'Production'],
+               description: 'Select environment')
+    }
+
+    stages {
+        stage('Display Parameters') {
+            steps {
+                echo "Welcome ${params.USERNAME}"
+                echo "Environment: ${params.ENVIRONMENT}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying to ${params.ENVIRONMENT}"
+            }
+        }
+    }
+}
+
+
+6)Create a GitHub Profile README showcasing identity, skills, and activity using Markdown.
