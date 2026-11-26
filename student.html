@@ -344,3 +344,154 @@ pipeline {
 
 
 6)Create a GitHub Profile README showcasing identity, skills, and activity using Markdown.
+1. Aim
+To create a GitHub Profile README using Markdown to showcase personal identity, technical skills, projects and GitHub activity.
+2. Requirements
+- GitHub account.
+- Web browser.
+- Basic knowledge of Markdown.
+3. Procedure
+1. Open GitHub.
+2. Login to your GitHub account.
+3. Click the + icon and select New repository.
+4. Enter your GitHub username as the repository name.
+5. Select Public.
+6. Check Add a README file.
+7. Click Create repository.
+8. Open the README.md file.
+9. Click the Edit (pencil) icon.
+10. Write your profile information using Markdown.
+11. Click Commit changes.
+12. Open your GitHub profile to view the README.
+4. Program (Markdown Code)
+Create a file named README.md and enter the following code.
+
+# Hi, I'm Bhaskar! 👋
+
+## About Me
+- 🎓 Student
+- 💻 Interested in DevOps and Programming
+- 🌱 Learning Docker, Jenkins and Git
+- 🚀 Interested in building projects
+
+## Technical Skills
+- HTML
+- CSS
+- Java
+- Python
+- R Programming
+- Git and GitHub
+- Docker
+- Jenkins
+
+## Tools
+- VS Code
+- Git
+- GitHub
+- Docker Desktop
+- Jenkins
+
+## My Projects
+- Event Registration Form
+- Docker Web Application
+- Jenkins Pipeline
+
+## GitHub Activity
+- Learning new technologies
+- Uploading projects to GitHub
+- Practicing coding regularly
+
+## Connect With Me
+- GitHub: https://github.com/BhaskarKyama
+
+---
+⭐ Thanks for visiting my profile!
+
+
+
+Set-4:
+7)Implement a scheduled pipeline using Jenkins.
+1. Aim
+To create and execute a scheduled Jenkins pipeline automatically at a specified time using the Cron syntax.
+2. Requirements
+- Jenkins installed and running.
+- Web browser.
+- Git (optional).
+- Jenkins Pipeline plugin.
+3. Procedure (Step-by-Step)
+Step 1: Open Jenkins
+1. Open your web browser.
+2. Enter the following URL:
+http://localhost:8080
+3. Log in to Jenkins using your credentials.
+Step 2: Create a New Pipeline
+1. Click on New Item.
+2. Enter the project name: Scheduled-Pipeline.
+3. Select Pipeline.
+4. Click OK.
+Step 3: Configure Build Triggers
+1. Scroll down to the Build Triggers section.
+2. Select Build periodically.
+3. Enter the following Cron expression:
+H/5 * * * *
+Step 4: Enter Pipeline Script
+1. Scroll down to the Pipeline section.
+2. Select Pipeline script in the Definition dropdown.
+3. Enter the following code:
+
+pipeline {
+    agent any
+
+    triggers {
+        cron('H/5 * * * *')
+    }
+
+    stages {
+        stage('Start') {
+            steps {
+                echo 'Scheduled Pipeline Started'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the Application'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing the Application'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the Application'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline Executed Successfully'
+        }
+        failure {
+            echo 'Pipeline Execution Failed'
+        }
+    }
+}
+
+
+
+Step 5: Save the Pipeline
+1. Click Apply if needed.
+2. Click Save.
+3. Jenkins will open the pipeline dashboard.
+Step 6: Execute the Pipeline
+1. Click Build Now to test the pipeline immediately.
+2. Click on the build number.
+3. Select Console Output.
+4. Observe the execution results.
+
+8)Create a personal or collaborative Code Snippet Library Repository on GitHub.
