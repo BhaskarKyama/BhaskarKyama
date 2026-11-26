@@ -495,3 +495,363 @@ Step 6: Execute the Pipeline
 4. Observe the execution results.
 
 8)Create a personal or collaborative Code Snippet Library Repository on GitHub.
+1. Aim
+To create a personal or collaborative Code Snippet Library Repository on GitHub to store, organize, manage, and share reusable code snippets.
+2. Procedure
+1. Open the GitHub website: https://github.com
+2. Log in using your GitHub account.
+3. Click on the + icon and select New repository.
+4. Enter the repository name as Code-Snippet-Library.
+5. Enter the description as A collection of reusable code snippets in different programming languages.
+6. Select Public to make the repository accessible to everyone.
+7. Select Add a README file.
+8. Click on Create repository.
+9. Open the repository and click Add file → Create new file.
+10. Create folders and files to organize code snippets.
+11. Add the required code snippets and provide suitable file names.
+12. Click Commit changes to save the files.
+13. To collaborate, open Settings → Collaborators.
+14. Click Add people, enter the GitHub username, and send an invitation.
+3. Repository Structure
+Code-Snippet-Library/
+│
+├── README.md
+│
+├── Python/
+│   ├── hello.py
+│   └── factorial.py
+│
+├── Java/
+│   ├── Hello.java
+│   └── Factorial.java
+│
+├── C/
+│   ├── hello.c
+│   └── palindrome.c
+│
+└── HTML/
+    ├── index.html
+    └── registration.html
+
+
+4. Sample Programs
+Python – hello.py
+print("Hello, World!")
+
+
+
+Java – Hello.java
+class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+
+
+C – hello.c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!");
+    return 0;
+}
+
+
+5. Git Commands
+To upload the code snippets using Git:
+git init
+
+git add .
+
+git commit -m "Initial commit"
+
+git branch -M main
+
+git remote add origin https://github.com/USERNAME/Code-Snippet-Library.git
+
+git push -u origin main
+
+
+
+Set-5:
+9)Implement a multi-stage pipeline using Jenkins.
+1. Aim
+To implement a multi-stage pipeline in Jenkins to automate the Build, Test, and Deploy stages of a software application.
+2. Procedure
+1. Open Jenkins in a web browser using http://localhost:8080.
+2. Log in with your username and password.
+3. Click on New Item.
+4. Enter the project name as Multi-Stage-Pipeline.
+5. Select Pipeline and click OK.
+6. Scroll down to the Pipeline section.
+7. Select Pipeline script in the Definition option.
+8. Enter the following Jenkins pipeline script.
+3. Program
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Building the Application'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing the Application'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the Application'
+            }
+        }
+
+    }
+}
+
+
+4. Execution Steps
+9. Click on Save.
+10. Click on Build Now to execute the pipeline.
+11. Select the build number from Build History.
+12. Click on Console Output.
+13. Observe the execution of all three stages: Build, Test, and Deploy.
+14. Verify that the pipeline execution is successful.
+
+
+10)Create a Git Branching Story Project – "A Tale in Branches" using Git branches, where each branch represents a chapter, and finally merge all chapters into a single book.html file.
+1. Aim
+To create a story project using Git branching, where each branch represents a different chapter of a story, and finally merge all chapters into a single book.html file.
+2. Procedure
+Step 1: Create a project folder
+1. Open Command Prompt.
+2. Navigate to the Desktop.
+3. Create a folder named A-Tale-in-Branches.
+cd Desktop
+mkdir A-Tale-in-Branches
+cd A-Tale-in-Branches
+
+
+Step 2: Initialize Git repository
+git init
+
+
+Create a README file:
+notepad README.md
+
+
+Enter:
+# A Tale in Branches
+A story project created using Git branching.
+Each branch represents one chapter.
+
+
+Save and close the file.
+
+Add and commit:
+git add .
+git commit -m "Initial commit"
+git branch -M main
+
+
+Step 3: Create Chapter 1 branch
+
+Create a new branch:
+git checkout -b chapter-1
+
+
+Create a file:
+notepad chapter1.html
+
+
+Enter the following code:
+<h2>Chapter 1: The Beginning</h2>
+<p>Once upon a time, there lived a young boy
+named Alex. He dreamed of exploring the world
+and discovering hidden mysteries.</p>
+
+
+Save and close.
+
+Commit the changes:
+git add .
+git commit -m "Added Chapter 1"
+
+
+Step 4: Create Chapter 2 branch
+
+Switch to the main branch:
+git checkout main
+
+
+Create the second branch:
+git checkout -b chapter-2
+
+
+Create the file:
+notepad chapter2.html
+
+
+Enter:
+<h2>Chapter 2: The Adventure</h2>
+<p>One morning, Alex discovered an old map.
+He followed the map into a mysterious forest
+to find a hidden treasure.</p>
+
+
+Save and close.
+
+Commit:
+git add .
+git commit -m "Added Chapter 2"
+
+
+Step 5: Create Chapter 3 branch
+
+Switch to main:
+git checkout main
+
+
+Create the third branch:
+git checkout -b chapter-3
+
+
+Create the file:
+notepad chapter3.html
+
+
+Enter:
+<h2>Chapter 3: The Discovery</h2>
+<p>After crossing the forest, Alex discovered
+a beautiful hidden kingdom. He found the
+treasure and helped the people of the kingdom.</p>
+
+
+Save and close.
+
+Commit:
+git add .
+git commit -m "Added Chapter 3"
+
+
+Step 6: Merge all chapters into main
+
+Switch to the main branch:
+git checkout main
+
+
+Merge Chapter 1:
+git merge chapter-1
+
+
+Merge Chapter 2:
+git merge chapter-2
+
+
+Merge Chapter 3:
+git merge chapter-3
+
+
+Step 7: Create the final book.html file
+
+Execute:
+notepad book.html
+
+
+Enter the following HTML code:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A Tale in Branches</title>
+</head>
+<body>
+
+    <h1>A Tale in Branches</h1>
+
+    <h2>Chapter 1: The Beginning</h2>
+    <p>Once upon a time, there lived a young boy
+    named Alex. He dreamed of exploring the world
+    and discovering hidden mysteries.</p>
+
+    <h2>Chapter 2: The Adventure</h2>
+    <p>One morning, Alex discovered an old map.
+    He followed the map into a mysterious forest
+    to find a hidden treasure.</p>
+
+    <h2>Chapter 3: The Discovery</h2>
+    <p>After crossing the forest, Alex discovered
+    a beautiful hidden kingdom. He found the
+    treasure and helped the people of the kingdom.</p>
+
+</body>
+</html>
+
+
+Save and close.
+
+Step 8: Commit the final book
+git add .
+git commit -m "Created final book with all chapters"
+
+
+Step 9: Verify branches and commits
+
+To display all branches:
+git branch
+
+
+To display commit history:
+git log --oneline --all --graph
+
+
+Step 10: View the final output
+1. Open the project folder.
+2. Double-click book.html.
+3. The complete story with all three chapters will open in the browser.
+
+
+
+
+Set-5:
+11)Demonstrate file creation and copying using a Jenkins Freestyle Project.
+1. Aim
+To create and copy files using a Jenkins Freestyle Project by executing Windows batch commands.
+2. Procedure
+1. Open Jenkins in a web browser using http://localhost:8080.
+2. Log in with your username and password.
+3. Click on New Item.
+4. Enter the project name as File-Creation-Copying.
+5. Select Freestyle Project.
+6. Click OK.
+7. Scroll down to the Build Steps section.
+8. Click Add build step.
+9. Select Execute Windows batch command.
+10. Enter the following commands in the command box.
+3. Program
+echo Creating a file using Jenkins
+
+echo Hello! This file is created by Jenkins. > file1.txt
+
+echo File created successfully.
+
+copy file1.txt file2.txt
+
+echo File copied successfully.
+
+dir
+
+
+4. Execution Steps
+11. Click on Save.
+12. Click on Build Now to execute the project.
+13. Select the build number from Build History.
+14. Click on Console Output.
+15. Observe the messages displayed in the console.
+16. Verify that both file1.txt and file2.txt are created in the Jenkins workspace.
+
+
+12)Demonstrate Continuous Integration and Continuous Development using Jenkins.
