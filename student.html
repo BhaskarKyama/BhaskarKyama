@@ -855,3 +855,1604 @@ dir
 
 
 12)Demonstrate Continuous Integration and Continuous Development using Jenkins.
+1. Aim
+To demonstrate Continuous Integration and Continuous Delivery (CI/CD) using Jenkins by automatically fetching source code from GitHub, building the application, testing it, and deploying the application.
+2. Requirements
+- Jenkins installed and running.
+- Git installed.
+- GitHub account.
+- Jenkins Git plugin.
+- Windows operating system.
+3. Procedure
+Step 1: Create a GitHub Repository
+1. Open GitHub: https://github.com
+2. Log in to your account.
+3. Click on New Repository.
+4. Enter the repository name as Jenkins-CICD.
+5. Select Public.
+6. Click Create repository.
+7. Add an index.html file containing sample application code.
+Step 2: Create a Jenkins Pipeline
+1. Open Jenkins using http://localhost:8080.
+2. Log in with your credentials.
+3. Click on New Item.
+4. Enter the project name as CI-CD-Pipeline.
+5. Select Pipeline.
+6. Click OK.
+Step 3: Configure the Pipeline
+1. Scroll down to the Pipeline section.
+2. Select Pipeline script in the Definition option.
+3. Enter the following Jenkins pipeline script.
+4. Jenkins Pipeline Program
+Replace USERNAME with your GitHub username.
+
+pipeline {
+    agent any
+
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Fetching source code from GitHub'
+
+                git branch: 'main',
+                    url: 'https://github.com/USERNAME/Jenkins-CICD.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the Application'
+                bat 'dir'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing the Application'
+                bat 'if exist index.html (echo Test Passed) else (echo Test Failed & exit /b 1)'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the Application'
+
+                bat 'if not exist deploy mkdir deploy'
+                bat 'copy /Y index.html deploy\\index.html'
+
+                archiveArtifacts artifacts: 'deploy/**'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI/CD Pipeline Executed Successfully'
+        }
+
+        failure {
+            echo 'CI/CD Pipeline Failed'
+        }
+    }
+}
+
+
+
+5. Execution Steps
+1. Replace USERNAME with your GitHub username.
+2. Click on Save.
+3. Click on Build Now.
+4. Select the build number from Build History.
+5. Click on Console Output.
+6. Observe the execution of Checkout, Build, Test, and Deploy stages.
+7. Verify that the build is successful.
+8. Open the Jenkins workspace and check the deploy folder.
+9. Verify that index.html is copied into the deploy folder.
+
+
+
+Set-7:
+13)Create a simple Hello World Freestyle Project and demonstrate workspace variables using Jenkins.
+1. Aim
+To create a simple Hello World Freestyle Project in Jenkins and demonstrate the use of workspace variables to access the Jenkins job workspace.
+2. Requirements
+- Jenkins installed and running.
+- Web browser.
+- Windows operating system.
+- Jenkins server running at http://localhost:8080.
+3. Procedure
+Step 1: Open Jenkins
+1. Open Google Chrome or Microsoft Edge.
+2. Enter http://localhost:8080.
+3. Log in using your Jenkins username and password.
+Step 2: Create a Freestyle Project
+1. Click on New Item on the Jenkins dashboard.
+2. Enter the project name as Hello-World.
+3. Select Freestyle Project.
+4. Click OK.
+Step 3: Configure Build Steps
+1. Scroll down to the Build Steps section.
+2. Click on Add build step.
+3. Select Execute Windows batch command.
+4. Enter the following commands.
+4. Program
+
+echo Hello World from Jenkins
+
+echo Workspace Directory: %WORKSPACE%
+
+echo Job Name: %JOB_NAME%
+
+echo Build Number: %BUILD_NUMBER%
+
+echo Creating a file in workspace...
+
+echo Hello World > hello.txt
+
+echo File created successfully.
+
+dir
+
+
+
+5. Execution Steps
+1. Click on Save.
+2. Click on Build Now.
+3. Wait for the build to complete.
+4. In the Build History section, click on the build number.
+5. Select Console Output.
+6. Observe the Hello World message and workspace variables.
+7. Go back to the Jenkins project.
+8. Click on Workspace.
+9. Verify that the hello.txt file is created successfully.
+
+
+14)Create a parameterized Freestyle Project using Jenkins.
+1. Aim
+To create a parameterized Freestyle Project in Jenkins by accepting user input parameters and executing build commands based on the given values.
+2. Requirements
+- Jenkins installed and running.
+- Web browser.
+- Windows operating system.
+3. Procedure
+Step 1: Open Jenkins
+1. Open Google Chrome or Microsoft Edge.
+2. Enter http://localhost:8080.
+3. Log in using your Jenkins username and password.
+Step 2: Create a Freestyle Project
+1. Click on New Item.
+2. Enter the project name as Parameterized-Project.
+3. Select Freestyle Project.
+4. Click OK.
+Step 3: Enable Parameterization
+1. Scroll down to the General section.
+2. Select This project is parameterized.
+3. Click on Add Parameter.
+4. Select String Parameter.
+5. Enter the following details:
+   - Name: USERNAME
+   - Default Value: Student
+   - Description: Enter your name
+6. Again, click on Add Parameter.
+7. Select Choice Parameter.
+8. Enter the following details:
+   - Name: LANGUAGE
+   - Choices:
+Python
+Java
+C
+
+
+- Description: Select your programming language.
+4. Program
+Step 4: Configure Build Steps
+1. Scroll down to the Build Steps section.
+2. Click on Add build step.
+3. Select Execute Windows batch command.
+4. Enter the following program:
+
+echo Welcome to Jenkins Parameterized Project
+
+echo Student Name: %USERNAME%
+
+echo Selected Language: %LANGUAGE%
+
+echo Hello %USERNAME%!
+
+echo Your selected programming language is %LANGUAGE%.
+
+echo Build completed successfully.
+
+
+
+5. Execution Steps
+1. Click on Save.
+2. Open the project dashboard.
+3. Click on Build with Parameters.
+4. Enter the student name.
+5. Select a programming language from the dropdown list.
+6. Click on Build.
+7. Select the build number from Build History.
+8. Click on Console Output.
+9. Observe the output based on the entered parameters.
+6. Expected Output
+For example, if the entered values are:
+- USERNAME = Bhaskar
+- LANGUAGE = Python
+
+
+Set-8
+15)Create a scheduled Freestyle Project using Jenkins.
+1. Aim
+To create a Scheduled Freestyle Project in Jenkins that automatically executes a build at a specified time using Cron syntax.
+2. Requirements
+- Jenkins installed and running.
+- Web browser.
+- Windows operating system.
+- Jenkins server running at http://localhost:8080.
+3. Procedure
+Step 1: Open Jenkins
+1. Open Google Chrome or Microsoft Edge.
+2. Enter http://localhost:8080.
+3. Log in using your Jenkins username and password.
+Step 2: Create a Freestyle Project
+1. Click on New Item.
+2. Enter the project name as Scheduled-Freestyle-Project.
+3. Select Freestyle Project.
+4. Click OK.
+Step 3: Configure Build Triggers
+1. Scroll down to the Build Triggers section.
+2. Select Build periodically.
+3. Enter the following Cron expression in the Schedule box:
+H/5 * * * *
+
+
+4. This schedules the project to execute approximately every 5 minutes.
+
+Step 4: Configure Build Steps
+1. Scroll down to the Build Steps section.
+2. Click on Add build step.
+3. Select Execute Windows batch command.
+4. Enter the following commands.
+4. Program
+
+echo Scheduled Freestyle Project Started
+
+echo Welcome to Jenkins Automation
+
+echo Building the Application
+
+echo Testing the Application
+
+echo Deploying the Application
+
+echo Scheduled Build Executed Successfully
+
+
+
+5. Execution Steps
+1. Click on Save.
+2. Open the project dashboard.
+3. Click on Build Now to test the project manually.
+4. Select the build number from Build History.
+5. Click on Console Output.
+6. Observe the execution results.
+7. Wait for approximately 5 minutes.
+8. Jenkins automatically triggers the next build according to the schedule.
+9. Check Build History to verify automatic execution.
+
+16)Set up and install Jenkins.
+1. Aim
+To download, install, configure, and set up Jenkins on a Windows system and access the Jenkins dashboard through a web browser.
+2. Requirements
+- Windows 10/11 operating system.
+- Internet connection.
+- Java JDK (Java 17 or later).
+- Jenkins installer.
+- Web browser (Chrome or Edge).
+3. Procedure
+Step 1: Install Java JDK
+1. Open your web browser.
+2. Visit the Java download website: https://adoptium.net/
+3. Download the JDK installer for Windows.
+4. Run the downloaded installer.
+5. Follow the installation instructions.
+6. Open Command Prompt and check Java installation:
+java -version
+
+
+7. Verify that the Java version is displayed.
+
+Step 2: Download Jenkins
+1. Open your web browser.
+2. Visit the official Jenkins website: https://www.jenkins.io/download/
+3. Select Windows.
+4. Download the Jenkins Windows installer (.msi).
+Step 3: Install Jenkins
+1. Open the downloaded Jenkins installer.
+2. Click Next.
+3. Accept the license agreement.
+4. Select the installation location.
+5. Configure Jenkins to run as a Windows service.
+6. Select the Java installation path if requested.
+7. Set the Jenkins port number as 8080.
+8. Click Install.
+9. Wait until the installation is completed.
+10. Click Finish.
+Step 4: Start Jenkins Service
+1. Press Windows + R.
+2. Type services.msc.
+3. Press Enter.
+4. Find Jenkins in the Services window.
+5. Check whether its status is Running.
+6. If it is stopped, right-click Jenkins and select Start.
+4. Configure Jenkins for First-Time Use
+Step 5: Open Jenkins Dashboard
+1. Open your browser.
+2. Enter:
+http://localhost:8080
+
+
+3. The Unlock Jenkins page will appear.
+
+Step 6: Unlock Jenkins
+1. Open File Explorer.
+2. Navigate to:
+C:\ProgramData\Jenkins\.jenkins\secrets
+
+
+3. Find the file named initialAdminPassword.
+4. Open the file using Notepad.
+5. Copy the password.
+6. Return to the Jenkins browser page.
+7. Paste the password into the Administrator password box.
+8. Click Continue.
+
+Jenkins
+Step 7: Install Plugins
+1. Select Install suggested plugins.
+2. Wait until all suggested plugins are installed.
+3. Jenkins will display the plugin installation progress.
+Step 8: Create Administrator User
+1. Enter your username.
+2. Enter your password.
+3. Confirm your password.
+4. Enter your full name and email address.
+5. Click Save and Continue.
+Step 9: Complete Jenkins Setup
+1. Jenkins displays the Instance Configuration page.
+2. Verify the Jenkins URL:
+http://localhost:8080/
+
+
+3. Click Save and Finish.
+4. Click Start using Jenkins.
+5. Verify Jenkins Installation
+1. Open the Jenkins dashboard.
+2. Check whether the dashboard is displayed successfully.
+3. Click New Item to verify that you can create a Jenkins job.
+
+
+Set-9:
+17)Explore Docker commands for container management.
+1. Aim
+To explore and execute various Docker commands for creating, running, listing, stopping, restarting, and removing containers.
+2. Requirements
+- Windows operating system.
+- Docker Desktop installed.
+- Docker Engine running.
+- Command Prompt or PowerShell.
+3. Procedure
+Step 1: Open Docker Desktop
+1. Open Docker Desktop.
+2. Wait until Docker Engine shows Running.
+3. Open Command Prompt.
+4. Check Docker installation using:
+docker --version
+
+
+Step 2: Check Docker Information
+
+Execute the following commands:
+docker info
+
+
+Displays information about the Docker system.
+docker images
+
+
+Displays all downloaded Docker images.
+
+Step 3: Download an Image
+
+Download the Nginx image:
+docker pull nginx
+
+
+This downloads the Nginx image from Docker Hub.
+
+Step 4: Create and Run a Container
+
+Execute:
+docker run -d -p 8080:80 --name mycontainer nginx
+
+
+Explanation:
+- docker run – Creates and starts a container.
+- -d – Runs in detached mode.
+- -p 8080:80 – Maps host port 8080 to container port 80.
+- --name – Assigns a container name.
+- nginx – Specifies the image.
+Open the browser and enter:
+http://localhost:8080
+
+
+The Nginx welcome page should appear.
+
+Step 5: List Running Containers
+docker ps
+
+
+Displays currently running containers.
+
+To display all containers:
+docker ps -a
+
+
+Step 6: Stop a Container
+docker stop mycontainer
+
+
+Stops the running container.
+
+Step 7: Start a Container
+docker start mycontainer
+
+
+Starts the stopped container.
+
+Step 8: Restart a Container
+docker restart mycontainer
+
+
+Restarts the container.
+
+Step 9: View Container Logs
+docker logs mycontainer
+
+
+Displays the container logs.
+
+Step 10: Access a Running Container
+docker exec -it mycontainer sh
+
+
+Opens an interactive shell inside the container.
+
+To exit:
+exit
+
+
+Step 11: Remove a Container
+
+First, stop the container:
+docker stop mycontainer
+
+
+Then remove it:
+docker rm mycontainer
+
+
+Step 12: Remove a Docker Image
+docker rmi nginx
+
+
+18)Create a simple containerized application using Docker.
+
+Aim: To create a simple web application, package it into a Docker image, and run it inside a Docker container.
+
+We will create a simple HTML application and use Nginx to run it.
+Step 1: Create a project folder
+1. Open Command Prompt.
+2. Execute:
+cd Desktop
+mkdir Docker-Simple-App
+cd Docker-Simple-App
+
+
+Step 2: Create the HTML application
+1. Type:
+notepad index.html
+
+
+2. Click Yes if Windows asks to create the file.
+3. Enter the following code:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Docker Application</title>
+</head>
+<body>
+    <h1>Welcome to Docker!</h1>
+    <h2>My First Containerized Application</h2>
+    <p>This application is running inside a Docker container.</p>
+</body>
+</html>
+
+
+
+4. Press Ctrl + S and close Notepad.
+Step 3: Create a Dockerfile
+1. In Command Prompt, type:
+notepad Dockerfile
+
+
+2. Enter:
+
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+
+
+
+3. Save and close Notepad.
+
+Explanation:
+- FROM nginx:alpine – Uses the Nginx base image.
+- COPY – Copies the HTML file into the Nginx web directory.
+- EXPOSE 80 – Documents the port used by the web server.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t my-simple-app .
+
+
+This creates a Docker image named my-simple-app.
+Step 5: Run the Docker container
+Execute:
+docker run -d -p 8083:80 --name simple-container my-simple-app
+
+
+- -d – Runs the container in the background.
+- -p 8083:80 – Maps host port 8083 to container port 80.
+- --name – Assigns a name to the container.
+Step 6: Check the running container
+docker ps
+
+
+You should see simple-container in the list.
+Step 7: View the application
+Open Google Chrome or Edge and enter:
+Application URL
+http://localhost:8083
+
+Step 8: Stop the container
+docker stop simple-container
+
+
+To start it again:
+docker start simple-container
+
+
+Set-10:
+19)Run a Python file using Docker.
+Aim: To create a Python program, build a Docker image, and execute the Python file inside a Docker container.
+
+We will use Python 3.12.
+Step 1: Create a project folder
+Open Command Prompt and execute:
+cd Desktop
+mkdir Python-Docker-App
+cd Python-Docker-App
+
+
+Step 2: Create a Python file
+Execute:
+notepad app.py
+
+
+Enter the following code:
+print("Hello World!")print("Welcome to Docker!")print("Python application running inside a Docker container.")
+
+
+
+Save the file and close Notepad.
+Step 3: Create a Dockerfile
+Execute:
+notepad Dockerfile
+
+
+Enter:
+
+FROM python:3.12-slim
+WORKDIR /app
+COPY app.py .
+CMD ["python", "app.py"]
+
+
+
+Save and close Notepad.
+
+Explanation:
+- FROM – Downloads the Python base image.
+- WORKDIR – Sets the working directory inside the container.
+- COPY – Copies the Python file into the container.
+- CMD – Executes the Python program.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t python-docker-app .
+
+
+Step 5: Run the Docker container
+Execute:
+docker run --name python-container python-docker-app
+
+
+Step 6: Verify the output
+Expected output:
+Hello World!
+Welcome to Docker!
+Python application running inside a Docker container.
+
+
+Step 7: Check the container
+docker ps -a
+
+
+20)Run a Java file using Docker.
+Aim: To create a Java program, build a Docker image, and execute the Java file inside a Docker container.
+
+We will use Java 17 with Eclipse Temurin.
+Step 1: Create a project folder
+Open Command Prompt and execute:
+cd Desktop
+mkdir Java-Docker-App
+cd Java-Docker-App
+
+
+Step 2: Create a Java file
+Execute:
+notepad App.java
+
+
+Enter the following program:
+
+class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        System.out.println("Welcome to Docker!");
+        System.out.println("Java application running inside a Docker container.");
+    }
+}
+
+
+
+Save the file and close Notepad.
+Step 3: Create a Dockerfile
+Execute:
+notepad Dockerfile
+
+
+Enter:
+
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY App.java .
+RUN javac App.java
+CMD ["java", "App"]
+
+
+
+Save and close Notepad.
+
+Explanation:
+- FROM – Uses Java 17 as the base image.
+- WORKDIR – Creates and sets the working directory.
+- COPY – Copies App.java into the container.
+- RUN javac App.java – Compiles the Java program.
+- CMD – Executes the compiled Java program.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t java-docker-app .
+
+
+Step 5: Run the Docker container
+Execute:
+docker run --name java-container java-docker-app
+
+
+Set-11:
+21)Implement a parameterized constructor in Java using Docker.
+Aim: To write a Java program demonstrating a parameterized constructor, build a Docker image, and execute the program inside a Docker container.
+Step 1: Create a project folder
+Open Command Prompt and execute:
+cd Desktop
+mkdir Java-Constructor-Docker
+cd Java-Constructor-Docker
+
+
+Step 2: Create a Java file
+Execute:
+notepad App.java
+
+
+Enter the following Java program:
+
+class Student {
+    int id;
+    String name;
+
+    // Parameterized Constructor
+    Student(int i, String n) {
+        id = i;
+        name = n;
+    }
+
+    void display() {
+        System.out.println("Student ID: " + id);
+        System.out.println("Student Name: " + name);
+    }
+}
+
+class App {
+    public static void main(String[] args) {
+        Student s1 = new Student(101, "Bhaskar");
+
+        System.out.println("Student Details:");
+        s1.display();
+    }
+}
+
+
+
+Save the file and close Notepad.
+Step 3: Create a Dockerfile
+Execute:
+notepad Dockerfile
+
+
+Enter:
+
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY App.java .
+RUN javac App.java
+CMD ["java", "App"]
+
+
+
+Save and close Notepad.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t java-constructor-app .
+
+
+This command creates a Docker image containing the compiled Java application.
+Step 5: Run the Docker container
+Execute:
+docker run --name constructor-container java-constructor-app
+
+22)Implement a palindrome program in Java using Docker.
+Aim: To write a Java program to check whether a given number is a palindrome, build a Docker image, and execute the program inside a Docker container.
+Step 1: Create a project folder
+Open Command Prompt and execute:
+cd Desktop
+mkdir Java-Palindrome-Docker
+cd Java-Palindrome-Docker
+
+
+Step 2: Create a Java file
+Execute:
+notepad App.java
+
+
+Enter the following Java program:
+
+class App {
+    public static void main(String[] args) {
+
+        int num = 121;
+        int original = num;
+        int reverse = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            reverse = reverse * 10 + digit;
+            num = num / 10;
+        }
+
+        if (original == reverse) {
+            System.out.println(original + " is a Palindrome");
+        } else {
+            System.out.println(original + " is not a Palindrome");
+        }
+    }
+}
+
+
+
+Save the file and close Notepad.
+Step 3: Create a Dockerfile
+Execute:
+notepad Dockerfile
+
+
+Enter the following:
+
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY App.java .
+RUN javac App.java
+CMD ["java", "App"]
+
+
+
+Save and close Notepad.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t java-palindrome-app .
+
+
+This command creates a Docker image named java-palindrome-app.
+Step 5: Run the Docker container
+Execute:
+docker run --name palindrome-container java-palindrome-app
+
+Set-12:
+23)Implement single inheritance in Java using Docker.
+Aim: To implement single inheritance in Java, create a Docker image, and execute the Java program inside a Docker container.
+Step 1: Create a project folder
+Open Command Prompt and execute:
+cd Desktop
+mkdir Java-Single-Inheritance
+cd Java-Single-Inheritance
+
+
+Step 2: Create a Java file
+Execute:
+notepad App.java
+
+
+Enter the following Java program:
+
+// Parent class
+class Animal {
+    void eat() {
+        System.out.println("Animal is eating");
+    }
+}
+
+// Child class inherits Animal
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog is barking");
+    }
+}
+
+// Main class
+class App {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+
+        d.eat();
+        d.bark();
+    }
+}
+
+
+
+Save the file and close Notepad.
+Step 3: Create a Dockerfile
+Execute:
+notepad Dockerfile
+
+
+Enter:
+
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY App.java .
+RUN javac App.java
+CMD ["java", "App"]
+
+
+
+Save and close Notepad.
+
+ren Dockerfile.txt Dockerfile
+
+Step 4: Build the Docker image
+Execute:
+docker build -t java-inheritance-app .
+
+
+This creates a Docker image named java-inheritance-app.
+Step 5: Run the Docker container
+Execute:
+docker run --name inheritance-container java-inheritance-app
+
+24)Integrate Kubernetes with Docker.
+
+Aim: To integrate Docker with Kubernetes and deploy a containerized application using a Kubernetes cluster.
+Step 1: Enable Kubernetes in Docker Desktop
+1. Open Docker Desktop.
+2. Click the Settings (gear icon).
+3. Find the Kubernetes section in the left panel.
+4. Select Enable Kubernetes.
+5. Click Apply & Restart if shown.
+6. Wait until Kubernetes shows that the cluster is running.
+The exact settings layout may differ slightly between Docker Desktop versions.
+Step 2: Verify Docker and Kubernetes
+Open Command Prompt and execute:
+docker --version
+kubectl version --client
+kubectl get nodes
+
+
+If Kubernetes is running correctly, kubectl get nodes should display a node with status Ready.
+Step 3: Download the Docker image
+Execute:
+docker pull nginx:alpine
+
+
+This downloads the Nginx Docker image.
+Step 4: Create a Kubernetes deployment file
+In Command Prompt, execute:
+mkdir Kubernetes-Docker
+cd Kubernetes-Docker
+notepad deployment.yaml
+
+
+Enter the following YAML configuration:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+
+
+
+Save the file and close Notepad.
+
+Explanation:
+- Deployment – Manages the application.
+- replicas: 2 – Creates two application pods.
+- image: nginx:alpine – Specifies the Docker image.
+- containerPort: 80 – Specifies the container port.
+- Service – Provides network access to the pods.
+Step 5: Deploy the application
+Execute:
+kubectl apply -f deployment.yaml
+
+
+Expected output:
+deployment.apps/nginx-deployment created
+service/nginx-service created
+
+
+Step 6: Verify the deployment
+Check the deployments:
+kubectl get deployments
+
+
+Check the pods:
+kubectl get pods
+
+
+Expected result: Two pods should show Running status.
+
+Check the services:
+kubectl get services
+
+
+You should see nginx-service.
+Step 7: Access the application
+Execute:
+kubectl port-forward service/nginx-service 8085:80
+
+
+Keep this Command Prompt window open.
+
+Open Chrome or Edge and visit:
+
+http://localhost:8085
+
+
+
+You should see the Welcome to nginx! page.
+Step 8: Delete the Kubernetes resources
+After testing, press Ctrl + C in the port-forward window.
+
+Then execute:
+kubectl delete -f deployment.yaml
+
+
+Set-13:
+
+25)Automate the execution of a containerized application using Kubernetes.
+Aim: To automate the deployment and execution of a containerized application using Kubernetes.
+
+Software requirements:
+- Docker Desktop
+- Kubernetes
+- kubectl
+- Windows Command Prompt
+Concept: Kubernetes automates container deployment, execution, restarting, and scaling. We use a Docker Nginx image and a Kubernetes Deployment to manage the application automatically.
+Step 1: Start Docker and Kubernetes
+1. Open Docker Desktop.
+2. Go to Settings → Kubernetes.
+3. Enable Kubernetes.
+4. Click Apply & Restart.
+5. Wait until Kubernetes shows as running.
+Step 2: Verify Kubernetes
+Open Command Prompt and execute:
+docker --version
+kubectl version --client
+kubectl get nodes
+
+
+The node should show Ready status.
+Step 3: Create a project folder
+cd Desktop
+mkdir Kubernetes-Automation
+cd Kubernetes-Automation
+
+
+Step 4: Create a Kubernetes deployment file
+Execute:
+notepad deployment.yaml
+
+
+Enter the following YAML code:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+
+
+
+Save and close Notepad.
+
+Explanation:
+- replicas: 2 – Automatically maintains two application pods.
+- image: nginx:alpine – Uses the Nginx container image.
+- Deployment – Manages application execution.
+- Service – Exposes the application through a network port.
+- nodePort: 30080 – Specifies the application access port.
+Step 5: Automate deployment
+Execute:
+kubectl apply -f deployment.yaml
+
+
+Expected output:
+deployment.apps/my-app created
+service/my-app-service created
+
+
+Kubernetes automatically creates the required pods.
+Step 6: Check application execution
+Execute:
+kubectl get deployments
+kubectl get pods
+kubectl get services
+
+
+Expected pod status:
+NAME                      READY   STATUS
+my-app-xxxxxxxxxx-xxxxx   1/1     Running
+my-app-xxxxxxxxxx-yyyyy   1/1     Running
+
+
+The actual pod names will be different.
+Step 7: Access the application
+Execute:
+kubectl port-forward service/my-app-service 8086:80
+
+
+Keep the Command Prompt window open.
+
+Open your browser and visit:
+
+http://localhost:8086
+Step 8: Demonstrate automatic recovery
+Kubernetes can automatically replace a pod if it is deleted.
+
+First, check the pods:
+kubectl get pods
+
+
+Copy one pod name and execute:
+kubectl delete pod POD_NAME
+
+
+Replace POD_NAME with the actual pod name.
+
+Now execute:
+kubectl get pods
+
+
+Kubernetes automatically creates a replacement pod to maintain the desired replica count of two.
+Step 9: Scale the application
+Execute:
+kubectl scale deployment my-app --replicas=3
+
+
+Verify:
+kubectl get pods
+
+
+Now Kubernetes should maintain three running pods.
+Step 10: Clean up resources
+Press Ctrl + C in the port-forward window.
+
+Then execute:
+kubectl delete -f deployment.yaml
+
+
+
+Result
+Successfully automated the deployment and execution of a containerized Nginx application using Kubernetes. Demonstrated automatic pod management, recovery, and scaling.
+Important viva questions
+1. What is Kubernetes?
+
+Kubernetes is an open-source container orchestration platform used to automate deployment, management, and scaling of containerized applications.
+
+2. What is a Pod?
+
+A Pod is the smallest deployable unit in Kubernetes. It contains one or more containers.
+
+3. What is a Deployment?
+
+A Deployment manages application replicas and maintains the desired number of running Pods.
+
+4. What is scaling?
+
+Scaling is the process of increasing or decreasing the number of application replicas.
+
+Let's perform it step by step
+First, complete Steps 1 and 2. Run:
+kubectl get nodes
+
+26)Download and install Selenium for automated testing.
+Aim: To download and install Selenium WebDriver and configure the environment for automating web browser testing using Java.
+
+Software requirements:
+- Windows 10/11
+- Java JDK
+- Eclipse IDE or IntelliJ IDEA
+- Microsoft Edge or Google Chrome
+- Selenium WebDriver
+We will use Java + Selenium + Microsoft Edge, following your previous Selenium lab setup.
+Step 1: Check Java installation
+1. Open Command Prompt.
+2. Execute:
+java -version
+javac -version
+
+
+If both commands display Java version information, Java is installed correctly.
+Step 2: Download Selenium
+Open the official Selenium website:
+Selenium Downloads – Official WebsiteDownload the Selenium Client & WebDriver for Java package.
+
+The current official Selenium Java release is 4.54.0 (November 23, 2026). Selenium 4.6 and later includes Selenium Manager, which can automatically obtain the matching browser driver, so manual EdgeDriver installation is usually unnecessary. 
+Selenium+2
+
+Step 3: Install Selenium in a Java project
+The recommended method is to use Maven.
+1. Open Eclipse IDE.
+2. Select File → New → Maven Project.
+3. Select Create a simple project and click Next.
+4. Enter a project name, for example SeleniumProject.
+5. Click Finish.
+Open the project's pom.xml file and add this dependency inside the dependencies section:
+
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.54.0</version>
+</dependency>
+
+
+
+Save the file. Maven will download the Selenium libraries automatically. 
+Selenium+1
+
+Step 4: Check Selenium installation
+1. Expand your project in Eclipse.
+2. Expand Maven Dependencies.
+3. Check that Selenium libraries are listed.
+Installation check
+ If the Selenium libraries appear under Maven Dependencies, the installation is successful.
+Step 5: Check Microsoft Edge
+1. Open Microsoft Edge.
+2. Enter edge://settings/help in the address bar.
+3. Check that Edge is installed and updated.
+You normally do not need to download EdgeDriver separately because Selenium Manager handles driver management. 
+Selenium+1
+
+Step 6: Run a simple Selenium program
+Create a Java class named FirstSeleniumTest.java under src/main/java.
+
+Enter:
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class FirstSeleniumTest {
+    public static void main(String[] args) {
+
+        WebDriver driver = new EdgeDriver();
+
+        driver.get("https://www.google.com");
+
+        System.out.println("Page Title: " + driver.getTitle());
+        System.out.println("Selenium Test Successful!");
+
+        driver.quit();
+    }
+}
+
+
+
+Right-click the Java file and select Run As → Java Application.
+
+Expected console output:
+Page Title: Google
+Selenium Test Successful!
+
+
+Set-14:
+
+27)Write a simple JavaScript program to perform testing using Selenium.
+Aim: To write and execute a simple JavaScript program using Selenium WebDriver to automate browser testing.
+
+Software requirements:
+- Node.js
+- Visual Studio Code or Command Prompt
+- Google Chrome or Microsoft Edge
+- Selenium WebDriver
+We will use JavaScript + Selenium WebDriver + Microsoft Edge.
+Step 1: Install Node.js
+1. Open the official website: Download Node.js.
+2. Download the LTS version.
+3. Run the installer.
+4. Click Next and complete the installation.
+Step 2: Verify Node.js installation
+Open Command Prompt and execute:
+node -v
+npm -v
+
+
+Both commands should display version numbers.
+Step 3: Create a project folder
+Execute:
+cd Desktop
+mkdir Selenium-JavaScript
+cd Selenium-JavaScript
+
+
+Step 4: Initialize the Node.js project
+Execute:
+npm init -y
+
+
+This creates a package.json file.
+Step 5: Install Selenium WebDriver
+Execute:
+npm install selenium-webdriver
+
+
+This installs the Selenium WebDriver package for JavaScript.
+Step 6: Create a JavaScript file
+Execute:
+notepad test.js
+
+
+Enter the following program:
+
+const { Builder } = require('selenium-webdriver');
+const assert = require('assert');
+
+async function runTest() {
+    let driver = await new Builder()
+        .forBrowser('MicrosoftEdge')
+        .build();
+
+    try {
+        // Open Google
+        await driver.get('https://www.google.com');
+
+        // Get webpage title
+        let title = await driver.getTitle();
+
+        console.log('Page Title:', title);
+
+        // Perform testing
+        assert.strictEqual(title, 'Google');
+
+        console.log('Selenium Test Passed!');
+    }
+    catch (error) {
+        console.log('Test Failed:', error.message);
+    }
+    finally {
+        await driver.quit();
+    }
+}
+
+runTest();
+
+
+
+Save the file and close Notepad.
+Step 7: Execute the JavaScript program
+In the same Command Prompt, execute:
+node test.js
+
+
+Selenium Manager will normally manage the required EdgeDriver automatically. Make sure Microsoft Edge is installed and internet access is available.
+Step 8: Verify the output
+Expected output
+Page Title: Google
+Selenium Test Passed!
+
+
+28)Develop test cases for a containerized application using Selenium.
+Aim: To develop and execute automated test cases for a containerized web application using Selenium WebDriver and Docker.
+
+Software requirements:
+- Docker Desktop
+- Kubernetes not required
+- Java JDK 21
+- NetBeans IDE
+- Selenium WebDriver
+- JUnit 5
+- Microsoft Edge browser
+We will run an Nginx web application inside a Docker container and test it using Selenium with Java.
+Step 1: Run the containerized application
+Open Command Prompt and execute:
+docker pull nginx:alpine
+
+
+Run the container:
+docker run -d -p 8083:80 --name selenium-test-app nginx:alpine
+
+
+Check the container:
+docker ps
+
+
+Open your browser and visit:
+
+http://localhost:8083
+
+You should see the Nginx welcome page.
+
+
+
+
+
+
+
+
+noob2poweruser.com
+
+
+Step 2: Configure the Selenium Maven project
+Open your existing SeleniumProject in NetBeans.
+
+Open pom.xml and add the following dependencies inside the <dependencies> section.
+
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.54.0</version>
+</dependency>
+
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.11.4</version>
+    <scope>test</scope>
+</dependency>
+
+
+
+Save the file and reload the Maven project.
+Step 3: Create a Selenium test class
+Create a Java test file named:
+
+NginxContainerTest.java
+
+Place it under:
+
+Source Packages → Test Packages → container.tests
+
+Enter the following code:
+
+package container.tests;
+
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class NginxContainerTest {
+
+    static WebDriver driver;
+
+    @BeforeAll
+    public static void setup() {
+        driver = new EdgeDriver();
+
+        driver.manage().timeouts()
+              .implicitlyWait(Duration.ofSeconds(5));
+
+        driver.get("http://localhost:8083");
+    }
+
+    // Test Case 1: Check page title
+    @Test
+    public void testPageTitle() {
+        String title = driver.getTitle();
+
+        assertEquals("Welcome to nginx!", title);
+
+        System.out.println("Test 1 Passed: Page title verified");
+    }
+
+    // Test Case 2: Check heading
+    @Test
+    public void testHeading() {
+        String heading = driver.findElement(
+            By.tagName("h1")).getText();
+
+        assertEquals("Welcome to nginx!", heading);
+
+        System.out.println("Test 2 Passed: Heading verified");
+    }
+
+    // Test Case 3: Check URL
+    @Test
+    public void testApplicationURL() {
+        String url = driver.getCurrentUrl();
+
+        assertTrue(url.contains("localhost:8083"));
+
+        System.out.println("Test 3 Passed: URL verified");
+    }
+
+    // Test Case 4: Check page content
+    @Test
+    public void testPageContent() {
+        String content = driver.findElement(
+            By.tagName("body")).getText();
+
+        assertTrue(content.contains(
+            "successfully installed and working"));
+
+        System.out.println("Test 4 Passed: Page content verified");
+    }
+
+    @AfterAll
+    public static void closeBrowser() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
+
+
+
+Step 4: Execute the test cases
+Open Command Prompt in your Maven project directory and execute:
+mvn test
+
+
+Alternatively, in NetBeans:
+1. Right-click NginxContainerTest.java.
+2. Select Test File.
+3. Wait for the execution to finish.
+4. Check the Output window.
+Step 5: Verify the output
+Expected test results
+Test 1 Passed: Page title verified
+Test 2 Passed: Heading verified
+Test 3 Passed: URL verified
+Test 4 Passed: Page content verified
+
+Tests run: 4
+Failures: 0
+Errors: 0
+BUILD SUCCESS
+
+
+The exact order of the test messages may differ.
+Step 6: Stop the Docker container
+After testing, execute:
+docker stop selenium-test-app
+
+
+To remove the container:
+docker rm selenium-test-app
